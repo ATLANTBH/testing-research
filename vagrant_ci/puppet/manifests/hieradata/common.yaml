@@ -1,0 +1,6 @@
+---
+jenkins::http_port: 8080
+jenkins::plugins:
+  - git
+  - slack
+  - testng-plugin

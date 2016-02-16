@@ -1,0 +1,16 @@
+fixtures:
+  repositories:
+    stdlib:
+      repo: 'https://github.com/puppetlabs/puppetlabs-stdlib.git'
+      ref:  '4.6.0'
+    wget:
+      repo: 'https://github.com/maestrodev/puppet-wget.git'
+      ref: 'v1.2.2'
+    logrotate:
+      repo: 'https://github.com/rodjek/puppet-logrotate.git'
+      # The current forge release (1.1.1) of logrotate is not compatible with
+      # the future parser. See:
+      # https://github.com/rodjek/puppet-logrotate/pull/39
+      ref: 'd569bcee1b43fa1af816c21afb5664d8e5235553'
+  symlinks:
+    selenium: "#{source_dir}"
