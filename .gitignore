@@ -1,2 +1,3 @@
  .vagrant
 *.box
+.DS_Store
