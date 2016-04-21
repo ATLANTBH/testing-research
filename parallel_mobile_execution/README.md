@@ -2,6 +2,7 @@
 
 ---
 Bash script that is used for running parallel mobile tests (written in RSpec or TestNG) on real Android devices
+
 Note: Support for iOS is not currently available
 
 ## Usage
