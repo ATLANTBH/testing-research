@@ -1,0 +1,4 @@
+appium/utils/DriverSupport.class
+appium/pageObjects/PlaceScreen.class
+appium/pageObjects/HomeScreen.class
+appium/utils/AbstractPage.class

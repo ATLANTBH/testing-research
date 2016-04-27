@@ -5,6 +5,7 @@ TEST_DIR=$2
 APPIUM_SERVER_DIR=$3
 APPIUM_SERVER_LOGS=$4
 TEST_LOGS=$5
+PID_DATA=()
 
 echo "------------------- Parallel mobile test execution with Appium ------------------"
 echo "[INFO] Test framework is: ${TEST_FRAMEWORK}"
@@ -43,13 +44,16 @@ function start_tests() {
       rspec_full_path=`which rspec`
       cd $test_dir
       UDID=$udid PORT=$appium_main_port PLATFORM_VERSION=$platform_version $rspec_full_path spec &
+      pid=$!
+      PID_DATA+=($pid)
       cd -
       ;;
     "testng" )
       mvn_full_path=`which mvn`
       cd $test_dir
-      $mvn_full_path -DUDID=$udid -DPORT=$appium_main_port test &
+      $mvn_full_path -DUDID=$udid -DPORT=$appium_main_port -DPLATFORM_VERSION=$platform_version -DTEST_OUTPUT="$test_logs-$udid" test &
       pid=$!
+      PID_DATA+=($pid)
       cd -
       ;;
   esac
@@ -123,7 +127,9 @@ do
   platform_version=`echo ${appium_data[i]} | cut -d, -f3`
   start_tests $TEST_FRAMEWORK $TEST_DIR $TEST_LOGS $port $udid $platform_version
 done
-wait $(pgrep -f $TEST_FRAMEWORK)
+
+# Wait for tests to finish
+wait ${PID_DATA[*]}
 
 # Cleanup of running appium server instances
 appium_server_instances_cleanup
