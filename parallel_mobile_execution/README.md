@@ -18,6 +18,8 @@ Tests written in java with testng are configured with the maven surefire plugin.
 - appium port (PORT)
 - folder for surefire test reports (TEST_OUTPUT)
 
+The device udid, platform version and appium port are generated inside `runner.sh` script, while test output folder is passed as an argument to `runner.sh` script (see Usage).
+
 ```
 <plugins>
     <plugin>
