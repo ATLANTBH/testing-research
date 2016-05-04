@@ -43,7 +43,7 @@ function start_tests() {
     "rspec" )
       rspec_full_path=`which rspec`
       cd $test_dir
-      UDID=$udid PORT=$appium_main_port PLATFORM_VERSION=$platform_version $rspec_full_path spec &
+      UDID=$udid PORT=$appium_main_port PLATFORM_VERSION=$platform_version $rspec_full_path spec > "$test_logs-$udid" &
       pid=$!
       PID_DATA+=($pid)
       cd -

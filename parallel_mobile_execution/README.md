@@ -50,3 +50,38 @@ URL appiumURL = new URL("http://127.0.0.1:" + System.getProperty("port") + "/wd/
 
 driver = new AndroidDriver(appiumURL, capabilities);
 ```
+
+## RSpec configuration
+
+Tests written in Ruby with RSpec are configured inside spec_helper.rb file. Following method is used for configuration:
+
+```
+def desired_caps
+  {
+    caps: {
+      platformName: "Android",
+      platformVersion: ENV['PLATFORM_VERSION'],
+      udid: ENV['UDID'],
+      deviceName: "Android",
+      app: ENV['APP_FILE'],
+      appActivity: "com.atlantbh.navigator.MainActivity",
+      appWaitActivity: "com.atlantbh.navigator.HomeActivity"
+      },
+    appium_lib: {
+      debug: true,
+      wait: 30,
+      export_session: true,
+      server_url: "http://localhost:#{ENV['PORT']}/wd/hub/"
+    }
+  }
+end
+```
+
+Following properties need to be configured:
+- device udid (UDID)
+- device platform version (PLATFORM_VERSION)
+- appium port (PORT)
+- application file (APP_FILE)
+- folder for RSpec test output (TEST_OUTPUT)
+
+The device udid, platform version and appium port are generated inside `runner.sh` script, while application file location needs to be set as environment variable (APP_FILE=<PATH_TO_APK_FILE>) before running `runner.sh` script. Also, test output folder is passed as an argument to `runner.sh` script (see Usage).
