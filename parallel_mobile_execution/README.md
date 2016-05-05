@@ -84,4 +84,4 @@ Following properties need to be configured:
 - application file (APP_FILE)
 - folder for RSpec test output (TEST_OUTPUT)
 
-The device udid, device platform version and appium port are generated inside `runner.sh` script, while application file location needs to be set as environment variable (APP_FILE=PATH_TO_APK_FILE) before running `runner.sh` script. Also, test output folder is passed as an argument to `runner.sh` script (see Usage).
+The device udid, device platform version and appium port are generated inside `runner.sh` script, while application file location needs to be set as environment variable (export APP_FILE=PATH_TO_APK_FILE) before running `runner.sh` script. Also, test output folder is passed as an argument to `runner.sh` script (see Usage).

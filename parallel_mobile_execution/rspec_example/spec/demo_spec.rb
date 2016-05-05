@@ -1,8 +1,8 @@
 require 'appium_lib'
 require './spec/spec_helper'
 
-address = "Maršala Tita 26"
-place_name = "Multiplex Cinema City"
+address = "Milana Preloga 12A"
+place_name = "Atlantbh"
 
 describe "Basic search test" do
 
@@ -19,6 +19,7 @@ describe "Basic search test" do
 
 	context "Click on the search field and search for place: #{place_name}" do
 		it "Search has been completed and place with name #{place_name} has been found" do
+			wait { tags("android.widget.LinearLayout")[0].click }
 			wait { tags("android.widget.LinearLayout")[0].send_keys place_name }
 			sleep 5
 			search_pos = tags("android.widget.LinearLayout")[0].location
