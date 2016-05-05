@@ -1,6 +1,6 @@
 ## Description
 
-Bash script that is used for running parallel mobile tests (written in RSpec or TestNG) on real Android devices
+This POC shows ability to run mobile tests on multiple real Android devices in parallel. Main engine for this parallel execution is in bash script `runner.sh`. This bash script is used for running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This projects gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel
 
 Note: Support for iOS is not currently available
 
@@ -12,13 +12,13 @@ bash runner.sh ${TEST_FRAMEWORK} ${ABSOLUTE_PATH_TO_TESTS_DIRECTORY} ${ABSOLUTE_
 
 ## Testng configuration
 
-Tests written in java with testng are configured with the maven surefire plugin. The plugin should be configured to expect the following properties:
+Tests written in Java with TestNG are configured with the maven surefire plugin. The plugin should be configured to expect the following properties:
 - device udid (UDID)
 - device platform version (PLATFORM_VERSION)
 - appium port (PORT)
 - folder for surefire test reports (TEST_OUTPUT)
 
-The device udid, platform version and appium port are generated inside `runner.sh` script, while test output folder is passed as an argument to `runner.sh` script (see Usage).
+The device udid, device platform version and appium port are generated inside `runner.sh` script, while test output folder is passed as an argument to `runner.sh` script (see Usage).
 
 ```
 <plugins>
@@ -84,4 +84,4 @@ Following properties need to be configured:
 - application file (APP_FILE)
 - folder for RSpec test output (TEST_OUTPUT)
 
-The device udid, platform version and appium port are generated inside `runner.sh` script, while application file location needs to be set as environment variable (APP_FILE=<PATH_TO_APK_FILE>) before running `runner.sh` script. Also, test output folder is passed as an argument to `runner.sh` script (see Usage).
+The device udid, device platform version and appium port are generated inside `runner.sh` script, while application file location needs to be set as environment variable (APP_FILE=PATH_TO_APK_FILE) before running `runner.sh` script. Also, test output folder is passed as an argument to `runner.sh` script (see Usage).
