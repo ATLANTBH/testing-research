@@ -21,10 +21,9 @@ describe "Basic search test" do
 		it "Search has been completed and place with name #{place_name} has been found" do
 			wait { tags("android.widget.LinearLayout")[0].send_keys place_name }
 			sleep 5
-			x_coordinate = tags("android.widget.LinearLayout")[0].location.x
-      y_coordinate = tags("android.widget.LinearLayout")[0].location.y
-      # increase coordinates so it can be clicked on dropdown menu
-			Appium::TouchAction.new.tap(x: x_coordinate + 100, y: y_coordinate + 100).perform
+			search_pos = tags("android.widget.LinearLayout")[0].location
+      height = tags("android.widget.LinearLayout")[0].size.height
+      Appium::TouchAction.new.tap(x: search_pos.x + 100, y: search_pos.y + height + height/2).perform
 			wait { expect(exists {find_exact place_name}).to eq(true) }
 		end
 	end
