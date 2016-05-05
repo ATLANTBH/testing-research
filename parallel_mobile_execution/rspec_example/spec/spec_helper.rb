@@ -26,7 +26,7 @@ def desired_caps
       platformVersion: ENV['PLATFORM_VERSION'],
       udid: ENV['UDID'],
       deviceName: "Android",
-      app: "./config/571-release.apk",
+      app: ENV['APP_FILE'],
       appActivity: "com.atlantbh.navigator.MainActivity",
       appWaitActivity: "com.atlantbh.navigator.HomeActivity"
       },
