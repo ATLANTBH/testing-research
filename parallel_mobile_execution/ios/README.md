@@ -85,7 +85,7 @@ To retrieve the provisioning profile ID:
 * Go to Xcode preferences -> Accounts
 * Select your Apple ID and Team
 * Click View Details
-* Right-click your provisioning profile from the Provisioning Profiles list and revealing it in Finder
+* Right-click your provisioning profile from the Provisioning Profiles list and reveal it in Finder
 * The provisioning profile ID is the name of the revealed file (without the extension)
 
 The app file can then be deployed to the device using `ios-deploy`. Install it using npm:
