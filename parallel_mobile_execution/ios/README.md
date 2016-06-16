@@ -92,7 +92,7 @@ The app file can then be deployed to the device using `ios-deploy`. Install it u
 
 `npm install -g ios-deploy`
 
-Run `ios-deploy` to install app on device:
+Connect iPhone and run `ios-deploy` to install app on device:
 
 ```
 ios-deploy --bundle /desired/folder/for/appFile/Build/Products/Release-iphoneos/YourApp.app
