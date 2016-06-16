@@ -71,5 +71,29 @@ After building the app, you can launch it with `ios-sim`.
 ios-sim launch /desired/folder/for/appFile/Build/Products/Debug-iphonesimulator/YourApp.app --devicetypeid 'com.apple.CoreSimulator.SimDeviceType.iPhone-6, 9.3’
 ```
 
+### Building your app for a device
 
+Run `xcodebuild`:
 
+```
+xcodebuild -workspace projectName.xcworkspace -scheme schemeName -configuration Release build CODE_SIGN_IDENTITY="iPhone Developer: Name Surname (AB1C23DEF4)" PROVISIONING_PROFILE="abcd1234-5678-123a-c12d-123a4b567cd8" -derivedDataPath /desired/folder/for/appFile
+```
+The code sign identity and provisioning profile ID should match the ones used for building the project. The code sign identity can be retrieved from the keychain, using Keychain Access.
+
+To retrieve the provisioning profile ID:
+
+* Go to Xcode preferences -> Accounts
+* Select your Apple ID and Team
+* Click View Details
+* Right-click your provisioning profile from the Provisioning Profiles list and revealing it in Finder
+* The provisioning profile ID is the name of the revealed file (without the extension)
+
+The app file can then be deployed to the device using `ios-deploy`. Install it using npm:
+
+`npm install -g ios-deploy`
+
+Run `ios-deploy` to install app on device:
+
+```
+ios-deploy --bundle /desired/folder/for/appFile/Build/Products/Release-iphoneos/YourApp.app
+```
