@@ -57,7 +57,7 @@ To build the app:
 * Run xcodebuild command with needed arguments:
 
 ```
-xcodebuild -workspace projectName.xcworkspace -scheme schemeName -destination ‘platform=iOS Simulator,name=iPhone6,OS=9.3’ -derivedDataPath /desired/folder/for/appFile build
+xcodebuild -workspace projectName.xcworkspace -scheme schemeName -destination ‘platform=iOS Simulator,name=iPhone 6,OS=9.3’ -derivedDataPath /desired/folder/for/appFile build
 ```
 
 Note: If build schemes are missing:
