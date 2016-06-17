@@ -57,7 +57,7 @@ To build the app:
 * Run xcodebuild command with needed arguments:
 
 ```
-xcodebuild -workspace projectName.xcworkspace -scheme schemeName -destination ‘platform=iOS Simulator,name=iPhone6,OS=9.3’ -derivedDataPath /desired/folder/for/appFile build
+xcodebuild -workspace projectName.xcworkspace -scheme schemeName -destination ‘platform=iOS Simulator,name=iPhone 6,OS=9.3’ -derivedDataPath /desired/folder/for/appFile build
 ```
 
 Note: If build schemes are missing:
@@ -85,14 +85,14 @@ To retrieve the provisioning profile ID:
 * Go to Xcode preferences -> Accounts
 * Select your Apple ID and Team
 * Click View Details
-* Right-click your provisioning profile from the Provisioning Profiles list and revealing it in Finder
+* Right-click your provisioning profile from the Provisioning Profiles list and reveal it in Finder
 * The provisioning profile ID is the name of the revealed file (without the extension)
 
 The app file can then be deployed to the device using `ios-deploy`. Install it using npm:
 
 `npm install -g ios-deploy`
 
-Run `ios-deploy` to install app on device:
+Connect iPhone and run `ios-deploy` to install app on device:
 
 ```
 ios-deploy --bundle /desired/folder/for/appFile/Build/Products/Release-iphoneos/YourApp.app
