@@ -76,7 +76,7 @@ ios-sim launch /desired/folder/for/appFile/Build/Products/Debug-iphonesimulator/
 Run `xcodebuild`:
 
 ```
-xcodebuild -workspace projectName.xcworkspace -scheme schemeName -configuration Release build CODE_SIGN_IDENTITY="iPhone Developer: Name Surname (AB1C23DEF4)" PROVISIONING_PROFILE="abcd1234-5678-123a-c12d-123a4b567cd8" -derivedDataPath /desired/folder/for/appFile
+xcodebuild -workspace projectName.xcworkspace -scheme schemeName -configuration Debug build CODE_SIGN_IDENTITY="iPhone Developer: Name Surname (AB1C23DEF4)" PROVISIONING_PROFILE="abcd1234-5678-123a-c12d-123a4b567cd8" -derivedDataPath /desired/folder/for/appFile
 ```
 The code sign identity and provisioning profile ID should match the ones used for building the project. The code sign identity can be retrieved from the keychain, using Keychain Access.
 
