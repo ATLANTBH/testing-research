@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "macosx_box"
-  config.vm.network "private_network", ip: "192.168.33.10"
-  config.vm.synced_folder "ios_build", "/Users/Vagrant/app_mount", type: "nfs", nfs_export: false
-  config.vm.synced_folder "rspec_example", "/Users/Vagrant/app_mount/script", type: "nfs", nfs_export: false
+  config.vm.network "private_network", ip: "192.168.33.2"
+  config.vm.synced_folder "ios_build", "/Users/Vagrant/app_mount/ios_build", type: "nfs", nfs_export: true
+  config.vm.synced_folder "rspec_example", "/Users/Vagrant/app_mount/scripts", type: "nfs", nfs_export: true
 end
