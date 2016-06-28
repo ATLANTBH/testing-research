@@ -24,7 +24,9 @@ def desired_caps
       platformName: "iOS",
       platformVersion: "9.3",
       deviceName: "iPhone 6",
-      app: ENV['APP_FILE']
+      bundleId: "com.atlantbh.tourist-guide",
+      udid: "f8352dfd0c8e98a9187009c8152e72f3a790f8ec",
+      nativeInstrumentsLib: true
       },
     appium_lib: {
       debug: true,

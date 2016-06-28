@@ -10,7 +10,7 @@ describe "Basic test" do
 
 	context "Open Tourist Guide application" do
 		it "application homepage is displayed and contains Favorites field" do
-			expect(exists { find_exact 'Favorites' }).to eq(true)
+			expect(exists { find 'Continue' }).to eq(true)
 		end
 	end
 
