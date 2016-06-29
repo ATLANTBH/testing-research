@@ -3,4 +3,5 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: "192.168.33.2"
   config.vm.synced_folder "ios_build", "/Users/Vagrant/app_mount/ios_build", type: "nfs", nfs_export: true
   config.vm.synced_folder "rspec_example", "/Users/Vagrant/app_mount/scripts", type: "nfs", nfs_export: true
+  config.vm.provision "shell", privileged: false, path: "scripts/test_runner.sh"
 end
