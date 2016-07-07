@@ -22,17 +22,16 @@ def desired_caps
   {
     caps: {
       platformName: "iOS",
-      platformVersion: "9.3",
-      deviceName: "iPhone 6",
+      deviceName: "iPad",
       bundleId: "com.atlantbh.tourist-guide",
-      udid: "f8352dfd0c8e98a9187009c8152e72f3a790f8ec",
+      udid: ENV['UDID'],
       nativeInstrumentsLib: true
       },
     appium_lib: {
       debug: true,
       wait: 30,
       export_session: true,
-      server_url: "http://127.0.0.1:4723/wd/hub"
+      server_url: "http://127.0.0.1:#{ENV['PORT']}/wd/hub"
     }
   }
 end
