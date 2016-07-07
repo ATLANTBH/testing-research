@@ -23,7 +23,7 @@ def desired_caps
     caps: {
       platformName: "iOS",
       deviceName: "iPad",
-      bundleId: "com.atlantbh.tourist-guide",
+      bundleId: "com.company.app",
       udid: ENV['UDID'],
       nativeInstrumentsLib: true
       },
