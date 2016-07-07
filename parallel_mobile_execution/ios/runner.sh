@@ -5,6 +5,7 @@ TEST_DIR=$2
 APPIUM_SERVER_LOGS=$3
 TEST_LOGS=$4
 INSTRUMENTS_OUTPUT_FOLDER=$5
+APP_FILE=$6
 PID_DATA=()
 
 echo "------------------- Parallel mobile test execution with Appium ------------------"
@@ -80,11 +81,10 @@ done
 echo "[INFO] Deploying app to connected devices..."
 
 iosdeploy_full_path=`which ios-deploy`
-app_name=`find $TEST_DIR"/config" -name '*.app'`
 ios_deploy_pids=()
 
 for udid in $udids; do
-  $iosdeploy_full_path --id $udid --bundle $app_name 2>&1 >/dev/null &
+  $iosdeploy_full_path --id $udid --bundle $APP_FILE 2>&1 >/dev/null &
   pid=$!
   ios_deploy_pids+=($pid)
 done

@@ -1,3 +1,53 @@
+## Description
+
+This POC shows ability to run mobile tests on multiple real iOS devices in parallel. Main engine for this parallel execution is in bash script `runner.sh`. This bash script is used for running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This projects gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel
+
+
+## Usage
+
+```
+bash runner.sh ${TEST_FRAMEWORK} ${ABSOLUTE_PATH_TO_TESTS_DIRECTORY} ${APPIUM_OUTPUT_LOGS} ${TEST_OUTPUT_LOGS} ${INSTRUMENTS_OUTPUT} ${ABSOLUTE_PATH_TO_APP_FILE}
+```
+
+## Testng configuration
+
+Testng sample and configuration to be provided.
+
+## RSpec configuration
+
+Tests written in Ruby with RSpec are configured inside spec_helper.rb file. Following method is used for configuration:
+
+```
+def desired_caps
+  {
+    caps: {
+      platformName: "iOS",
+      deviceName: "iPhone",
+      bundleId: "com.company.app",
+      udid: ENV['UDID'],
+      nativeInstrumentsLib: true
+      },
+    appium_lib: {
+      debug: true,
+      wait: 30,
+      export_session: true,
+      server_url: "http://127.0.0.1:#{ENV['PORT']}/wd/hub"
+    }
+  }
+end
+```
+
+Following properties need to be configured:
+- device udid (UDID)
+- appium port (PORT)
+- application file (APP_FILE)
+- folder for RSpec test output (TEST_OUTPUT)
+- folder for Instruments library output (INSTRUMENTS_OUTPUT)
+
+The device udid and appium port are generated inside `runner.sh` script. App file path, test output folder and instruments output are passed as arguments to `runner.sh` script (see Usage). The app file argument is used with `ios-deploy` to install the app to the connected devices prior running the tests, while appium uses the app bundle id to run the app.
+
+
+
 ## iOS Build cheatsheet
 
 
