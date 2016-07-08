@@ -2,31 +2,27 @@
 
 TEST_FRAMEWORK=$1
 TEST_DIR=$2
-APPIUM_SERVER_DIR=$3
-APPIUM_SERVER_LOGS=$4
-TEST_LOGS=$5
+APPIUM_SERVER_LOGS=$3
+TEST_LOGS=$4
+APP_FILE_PATH=$5
 PID_DATA=()
 
 echo "------------------- Parallel mobile test execution with Appium ------------------"
 echo "[INFO] Test framework is: ${TEST_FRAMEWORK}"
 echo "[INFO] Test directory is: ${TEST_DIR}"
-echo "[INFO] Appium server directory is: ${APPIUM_SERVER_DIR}"
 echo "[INFO] Appium server logs will be stored at: ${APPIUM_SERVER_LOGS}"
 echo "[INFO] Test logs will be stored at: ${TEST_LOGS}"
 
 # Function for running appium server
 function start_appium_server() {
-  appium_server_dir=$1
-  appium_main_port=$2
-  appium_bootstrap_port=$3
-  appium_server_logs=$4
+  appium_main_port=$1
+  appium_bootstrap_port=$2
+  appium_server_logs=$3
   udid=$5
 
   echo "[INFO] Starting Appium server instance with main port: ${appium_main_port} and bootstrap port: ${appium_bootstrap_port} for udid: ${udid}..."
-  cd $appium_server_dir
-  node_full_path=`which node`
-  nohup $node_full_path . -p $appium_main_port -bp $appium_bootstrap_port -U $udid > "$appium_server_logs.$udid" &
-  cd -
+  appium_full_path=`which appium`
+  nohup $appium_full_path -p $appium_main_port -bp $appium_bootstrap_port -U $udid > "$appium_server_logs.$udid" &
 }
 
 # Function for running tests
@@ -43,7 +39,7 @@ function start_tests() {
     "rspec" )
       rspec_full_path=`which rspec`
       cd $test_dir
-      UDID=$udid PORT=$appium_main_port PLATFORM_VERSION=$platform_version $rspec_full_path spec > "$test_logs-$udid" &
+      UDID=$udid PORT=$appium_main_port PLATFORM_VERSION=$platform_version APP_FILE=$APP_FILE_PATH $rspec_full_path spec > "$test_logs-$udid" &
       pid=$!
       PID_DATA+=($pid)
       cd -
@@ -51,7 +47,7 @@ function start_tests() {
     "testng" )
       mvn_full_path=`which mvn`
       cd $test_dir
-      $mvn_full_path -DUDID=$udid -DPORT=$appium_main_port -DPLATFORM_VERSION=$platform_version -DTEST_OUTPUT="$test_logs-$udid" test &
+      $mvn_full_path -DUDID=$udid -DPORT=$appium_main_port -DPLATFORM_VERSION=$platform_version -DTEST_OUTPUT="$test_logs-$udid" -DAPP_FILE=$APP_FILE_PATH test &
       pid=$!
       PID_DATA+=($pid)
       cd -
@@ -62,7 +58,7 @@ function start_tests() {
 # Function for cleaning up running appium server instances
 function appium_server_instances_cleanup() {
   pkill_full_path=`which pkill`
-  $pkill_full_path -f "node ."
+  $pkill_full_path -f "node"
   echo "[INFO] Waiting for appium server instances to be shut down..." && sleep 5
   ps -ef | grep [n]ode
   if [[ $? == 0 ]]; then

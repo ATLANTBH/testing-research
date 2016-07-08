@@ -17,7 +17,7 @@ public class DriverSupport {
         capabilities.setCapability("platformVersion", System.getProperty("platformVersion"));
         capabilities.setCapability("deviceName", "Android");
         capabilities.setCapability("udid", System.getProperty("udid"));
-        capabilities.setCapability("app", System.getProperty("user.dir") + "/571-release.apk");
+        capabilities.setCapability("app", System.getProperty("app"));
         capabilities.setCapability("appActivity", "com.atlantbh.navigator.MainActivity");
         capabilities.setCapability("appWaitActivity", "com.atlantbh.navigator.HomeActivity");
 

@@ -35,6 +35,7 @@
                     <systemPropertyVariables>
                         <udid>${UDID}</udid>
                         <port>${PORT}</port>
+                        <app>${APP_FILE}</app>
                         <platformVersion>${PLATFORM_VERSION}</platformVersion>
                     </systemPropertyVariables>
                 </configuration>
