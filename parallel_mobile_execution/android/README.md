@@ -1,12 +1,12 @@
 ## Description
 
-This POC shows ability to run mobile tests on multiple real Android devices in parallel. Main engine for this parallel execution is in bash script `runner.sh`. This bash script is used for running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This projects gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel
+This POC shows ability to run mobile tests on multiple real Android devices in parallel. Main engine for this parallel execution is in bash script `android_runner.sh`. This bash script is used for running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This projects gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel
 
 
 ## Usage
 
 ```
-bash runner.sh ${TEST_FRAMEWORK} ${ABSOLUTE_PATH_TO_TESTS_DIRECTORY} ${ABSOLUTE_PATH_TO_APPIUM_SERVER_DIRECTORY} ${APPIUM_OUTPUT_LOGS} ${TEST_OUTPUT_LOGS}
+bash android_runner.sh ${TEST_FRAMEWORK} ${ABSOLUTE_PATH_TO_TESTS_DIRECTORY} ${APPIUM_OUTPUT_LOGS} ${TEST_OUTPUT_LOGS} ${ABSOULTE_PATH_TO_APP_FILE}
 ```
 
 ## Testng configuration
@@ -16,8 +16,9 @@ Tests written in Java with TestNG are configured with the maven surefire plugin.
 - device platform version (PLATFORM_VERSION)
 - appium port (PORT)
 - folder for surefire test reports (TEST_OUTPUT)
+- path to apk file (ABSOULTE_PATH_TO_APP_FILE)
 
-The device udid, device platform version and appium port are generated inside `runner.sh` script, while test output folder is passed as an argument to `runner.sh` script (see Usage).
+The device udid, device platform version and appium port are generated inside `android_runner.sh` script, while test output and path to apk file are passed as an argument to `android_runner.sh` script (see Usage).
 
 ```
 <plugins>
@@ -30,6 +31,7 @@ The device udid, device platform version and appium port are generated inside `r
             <systemPropertyVariables>
                 <udid>${UDID}</udid>
                 <port>${PORT}</port>
+                <app>${APP_FILE}</app>
                 <platformVersion>${PLATFORM_VERSION}</platformVersion>
             </systemPropertyVariables>
         </configuration>
@@ -44,6 +46,7 @@ The properties are then retrieved when setting the desired capabilities of the t
 DesiredCapabilities capabilities = new DesiredCapabilities();
 capabilities.setCapability("platformVersion", System.getProperty("platformVersion"));
 capabilities.setCapability("udid", System.getProperty("udid"));
+capabilities.setCapability("app", System.getProperty("app"));
 
 URL appiumURL = new URL("http://127.0.0.1:" + System.getProperty("port") + "/wd/hub");
 
@@ -83,4 +86,4 @@ Following properties need to be configured:
 - application file (APP_FILE)
 - folder for RSpec test output (TEST_OUTPUT)
 
-The device udid, device platform version and appium port are generated inside `runner.sh` script, while application file location needs to be set as environment variable (`export APP_FILE=PATH_TO_APK_FILE`) before running `runner.sh` script. Also, test output folder is passed as an argument to `runner.sh` script (see Usage).
+The device udid, device platform version and appium port are generated inside `android_runner.sh` script, while test output and path to apk file are passed as an argument to `android_runner.sh` script (see Usage).

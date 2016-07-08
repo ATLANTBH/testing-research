@@ -18,7 +18,7 @@ function start_appium_server() {
   appium_main_port=$1
   appium_bootstrap_port=$2
   appium_server_logs=$3
-  udid=$5
+  udid=$4
 
   echo "[INFO] Starting Appium server instance with main port: ${appium_main_port} and bootstrap port: ${appium_bootstrap_port} for udid: ${udid}..."
   appium_full_path=`which appium`
@@ -110,7 +110,7 @@ do
   appium_data+=($data)
 
   # Start appium server
-  start_appium_server $APPIUM_SERVER_DIR $p $bp $APPIUM_SERVER_LOGS $udid
+  start_appium_server $p $bp $APPIUM_SERVER_LOGS $udid
   # Ensure that appium server instance is initialized
   sleep 10
 done
