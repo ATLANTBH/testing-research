@@ -67,6 +67,22 @@ function appium_server_instances_cleanup() {
   fi
 }
 
+function deploy_app() {
+  udids=$1
+
+  iosdeploy_full_path=`which ios-deploy`
+  ios_deploy_pids=()
+
+  for udid in $udids; do
+    $iosdeploy_full_path --id $udid --bundle $APP_FILE 2>&1 >/dev/null &
+    pid=$!
+    ios_deploy_pids+=($pid)
+  done
+
+  # Wait for apps to be deployed
+  wait ${ios_deploy_pids[*]}
+}
+
 # Populate array of UDIDs
 echo "[INFO] Getting all device UDIDs..."
 udid_data=()
@@ -80,17 +96,8 @@ done
 
 echo "[INFO] Deploying app to connected devices..."
 
-iosdeploy_full_path=`which ios-deploy`
-ios_deploy_pids=()
-
-for udid in $udids; do
-  $iosdeploy_full_path --id $udid --bundle $APP_FILE 2>&1 >/dev/null &
-  pid=$!
-  ios_deploy_pids+=($pid)
-done
-
-# Wait for apps to be deployed
-wait ${ios_deploy_pids[*]}
+# Deploy app on connected devices
+deploy_app $udids
 
 echo "[INFO] Number of Appium server instances that will be spawned: ${#udid_data[@]}"
 
