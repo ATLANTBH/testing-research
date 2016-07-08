@@ -1,24 +1,24 @@
 ## Description
 
-This POC shows ability to run mobile tests on multiple real Android devices in parallel. Main engine for this parallel execution is in bash script `android_runner.sh`. This bash script is used for running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This projects gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel
+This POC shows ability to run mobile tests on multiple real Android devices in parallel. Main engine for this parallel execution is in bash script `android_runner.sh`. This script is used for installing *.apk on attached devices and running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This project gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel
 
 
 ## Usage
 
 ```
-bash android_runner.sh ${TEST_FRAMEWORK} ${ABSOLUTE_PATH_TO_TESTS_DIRECTORY} ${APPIUM_OUTPUT_LOGS} ${TEST_OUTPUT_LOGS} ${ABSOULTE_PATH_TO_APP_FILE}
+bash android_runner.sh ${TEST_FRAMEWORK} ${ABSOLUTE_PATH_TO_TESTS_DIRECTORY} ${APPIUM_OUTPUT_LOGS} ${TEST_OUTPUT_LOGS} ${ABSOLUTE_PATH_TO_APP_FILE}
 ```
 
-## Testng configuration
+## TestNG configuration
 
-Tests written in Java with TestNG are configured with the maven surefire plugin. The plugin should be configured to expect the following properties:
+Tests written in Java with TestNG are configured with maven surefire plugin. The plugin should be configured to expect the following properties:
 - device udid (UDID)
 - device platform version (PLATFORM_VERSION)
 - appium port (PORT)
 - folder for surefire test reports (TEST_OUTPUT)
-- path to apk file (ABSOULTE_PATH_TO_APP_FILE)
+- path to *.apk file (ABSOLUTE_PATH_TO_APP_FILE)
 
-The device udid, device platform version and appium port are generated inside `android_runner.sh` script, while test output and path to apk file are passed as an argument to `android_runner.sh` script (see Usage).
+The device udid, device platform version and appium port are generated inside `android_runner.sh` script, while test output and path to *.apk file are passed as an argument to `android_runner.sh` script (see Usage).
 
 ```
 <plugins>

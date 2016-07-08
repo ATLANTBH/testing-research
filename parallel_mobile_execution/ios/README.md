@@ -1,9 +1,8 @@
 ## Description
 
-This POC shows ability to run mobile tests on multiple real iOS devices in parallel. Main engine for this parallel execution is in bash script `ios_runner.sh`. This bash script is used for running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This projects gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel.
-
 For help on building iOS apps for testing see the [iOS Build cheatsheet](https://github.com/ATLANTBH/testing-research/wiki/iOS-Build-cheatsheet)
 
+This POC shows ability to run mobile tests on multiple real iOS devices in parallel. Main engine for this parallel execution is in bash script `ios_runner.sh`. This script is used for installing *.app on attached devices and running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This projects gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel.
 
 ## Usage
 
@@ -11,7 +10,7 @@ For help on building iOS apps for testing see the [iOS Build cheatsheet](https:/
 bash ios_runner.sh ${TEST_FRAMEWORK} ${ABSOLUTE_PATH_TO_TESTS_DIRECTORY} ${APPIUM_OUTPUT_LOGS} ${TEST_OUTPUT_LOGS} ${INSTRUMENTS_OUTPUT} ${ABSOLUTE_PATH_TO_APP_FILE}
 ```
 
-## Testng configuration
+## TestNG configuration
 
 Tests written in Java with TestNG are configured with the maven surefire plugin. The plugin should be configured to expect the following properties:
 - device udid (UDID)
