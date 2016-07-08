@@ -1,6 +1,6 @@
 ## Description
 
-This POC shows ability to run mobile tests on multiple real iOS devices in parallel. Main engine for this parallel execution is in bash script `ios_runner.sh`. This bash script is used for running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This projects gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel
+This POC shows ability to run mobile tests on multiple real iOS devices in parallel. Main engine for this parallel execution is in bash script `ios_runner.sh`. This script is used for running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This projects gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel
 
 
 ## Usage
