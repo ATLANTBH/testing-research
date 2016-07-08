@@ -1,17 +1,56 @@
 ## Description
 
-This POC shows ability to run mobile tests on multiple real iOS devices in parallel. Main engine for this parallel execution is in bash script `runner.sh`. This bash script is used for running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This projects gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel
+This POC shows ability to run mobile tests on multiple real iOS devices in parallel. Main engine for this parallel execution is in bash script `ios_runner.sh`. This bash script is used for running parallel mobile tests written in RSpec or TestNG in conjuction with Appium as mobile framework. This projects gives examples in both TestNG and RSpec on how to configure test scripts that could be executed in parallel
 
 
 ## Usage
 
 ```
-bash runner.sh ${TEST_FRAMEWORK} ${ABSOLUTE_PATH_TO_TESTS_DIRECTORY} ${APPIUM_OUTPUT_LOGS} ${TEST_OUTPUT_LOGS} ${INSTRUMENTS_OUTPUT} ${ABSOLUTE_PATH_TO_APP_FILE}
+bash ios_runner.sh ${TEST_FRAMEWORK} ${ABSOLUTE_PATH_TO_TESTS_DIRECTORY} ${APPIUM_OUTPUT_LOGS} ${TEST_OUTPUT_LOGS} ${INSTRUMENTS_OUTPUT} ${ABSOLUTE_PATH_TO_APP_FILE}
 ```
 
 ## Testng configuration
 
-Testng sample and configuration to be provided.
+Tests written in Java with TestNG are configured with the maven surefire plugin. The plugin should be configured to expect the following properties:
+- device udid (UDID)
+- appium port (PORT)
+- folder for surefire test reports (TEST_OUTPUT)
+
+The device udid and appium port are generated inside `ios_runner.sh` script, while test output folder is passed as an argument to `ios_runner.sh` script (see Usage).
+
+```
+<plugins>
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-surefire-plugin</artifactId>
+		<version>2.19.1</version>
+		<configuration>
+			<reportsDirectory>${TEST_OUTPUT}</reportsDirectory>
+			<suiteXmlFiles>
+				<suiteXmlFile>smokeTest.xml</suiteXmlFile>
+			</suiteXmlFiles>
+			<systemPropertyVariables>
+				<udid>${UDID}</udid>
+               	<port>${PORT}</port>
+         	</systemPropertyVariables>
+   		</configuration>
+    </plugin>
+</plugins>
+```
+
+The properties are then retrieved when setting the desired capabilities of the test and initializing the IOSDriver. The app file argument is used with `ios-deploy` to install the app to the connected devices prior running the tests, while appium uses the app bundle id to run the app.
+
+```
+DesiredCapabilities capabilities = new DesiredCapabilities();
+capabilities.setCapability("platformName", "iOS");
+capabilities.setCapability("deviceName", "iPhone");
+capabilities.setCapability("udid", System.getProperty("udid"));
+capabilities.setCapability("bundleId", "com.company.app");
+
+URL appiumURL = new URL("http://127.0.0.1:" + System.getProperty("port") + "/wd/hub");
+
+driver = new IOSDriver(appiumURL, capabilities);
+```
 
 ## RSpec configuration
 
@@ -44,7 +83,7 @@ Following properties need to be configured:
 - folder for RSpec test output (TEST_OUTPUT)
 - folder for Instruments library output (INSTRUMENTS_OUTPUT)
 
-The device udid and appium port are generated inside `runner.sh` script. App file path, test output folder and instruments output are passed as arguments to `runner.sh` script (see Usage). The app file argument is used with `ios-deploy` to install the app to the connected devices prior running the tests, while appium uses the app bundle id to run the app.
+The device udid and appium port are generated inside `ios_runner.sh` script. App file path, test output folder and instruments output are passed as arguments to `ios_runner.sh` script (see Usage). The app file argument is used with `ios-deploy` to install the app to the connected devices prior running the tests, while appium uses the app bundle id to run the app.
 
 
 

@@ -47,7 +47,7 @@ function start_tests() {
     "testng" )
       mvn_full_path=`which mvn`
       cd $test_dir
-      $mvn_full_path -DUDID=$udid -DPORT=$appium_main_port -DPLATFORM_VERSION=$platform_version -DTEST_OUTPUT="$test_logs-$udid" test &
+      $mvn_full_path -DUDID=$udid -DPORT=$appium_main_port -DTEST_OUTPUT="$test_logs-$udid" test &
       pid=$!
       PID_DATA+=($pid)
       cd -
