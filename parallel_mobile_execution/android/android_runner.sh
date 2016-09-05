@@ -74,7 +74,7 @@ udid_data=()
 i=0
 while [[ $i -lt 10 ]]; do
   adb_full_path=`which adb`
-  devices_running=`$adb_full_path devices | grep "device not running"`
+  devices_running=`$adb_full_path devices | grep "daemon not running"`
   if [[ $? == 0 ]]; then
     echo "[INFO] adb not ready. Waiting..." && sleep 5
     let i=i+1
