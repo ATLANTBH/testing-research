@@ -15,7 +15,7 @@ We encountered occasional issues with connecting slave machine to jenkins master
 ```
 nohup /bin/bash <PATH>/jenkins_slave_reconnect.sh ${JENKINS_MASTER_URL} ${NODE_NAME} ${SECRET} ${OUTPUT_LOG_FILE} &
 ```
-3. Set desired frequency for execution. For example:
+3. Set desired frequency for execution. For example (run this script once per day):
 ```
 * * 1 * * nohup /bin/bash <PATH>/jenkins_slave_reconnect.sh ${JENKINS_MASTER_URL} ${NODE_NAME} ${SECRET} ${OUTPUT_LOG_FILE} &
 ```
