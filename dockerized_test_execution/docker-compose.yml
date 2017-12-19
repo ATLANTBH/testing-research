@@ -1,0 +1,47 @@
+version: "3"
+services:
+  selenium-hub:
+    image: selenium/hub:3.4.0-einsteinium
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+    environment:
+      - GRID_BROWSER_TIMEOUT=60
+  chrome:
+    image: selenium/node-chrome-debug:3.0.1-aluminum
+    ports:
+      - "5900:5900"
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_PORT_4444_TCP_ADDR=selenium-hub
+      - HUB_PORT_4444_TCP_PORT=4444
+    volumes:
+      - /dev/shm:/dev/shm
+  firefox:
+    image: selenium/node-firefox-debug:3.4.0-einsteinium
+    ports:
+      - "5901:5900"
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_PORT_4444_TCP_ADDR=selenium-hub
+      - HUB_PORT_4444_TCP_PORT=4444
+    volumes:
+      - /dev/shm:/dev/shm
+  abhtests:
+    image: atlantbh/ruby
+    build: .
+    depends_on:
+      - firefox
+      - chrome
+    environment:
+      - SELENIUM_GRID_URL=selenium-hub:4444
+      - DOCKER_COMPOSE_WAIT=30
+      - TESTS_TO_RUN=${TESTS_TO_RUN}
+    volumes:
+      - .:/tests
+networks:
+  default:
+    external:
+      name: ${OWL_NETWORK}
