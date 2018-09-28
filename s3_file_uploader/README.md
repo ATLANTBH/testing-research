@@ -1,4 +1,4 @@
-# S3 File uplaoder
+# S3 File uploader
 
 FileUploader is a helper ruby class that is used to upload files to an S3 storage.
 Main idea behind this is ability for OWL test reporting tool to be able to show screenshots of failed test steps which will be loaded from S3
