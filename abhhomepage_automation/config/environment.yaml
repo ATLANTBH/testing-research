@@ -1,0 +1,32 @@
+environment:
+  url: https://www.atlantbh.com
+  platform: web
+  web:
+    driver: firefox
+  mobile:
+    server_url: http://localhost:4723/wd/hub/
+    orientation: portrait
+    ios:
+      platform_name: 'iOS'
+      platform_version: '9.3'
+      device_name: 'iPhone 5'
+      browser_name: 'Safari'
+    android: 
+      platform_name: Android
+      platform_version: '6.0'
+      device_name: 'Android Emulator'
+      browser_name: Chrome
+      chrome_driver: '/home/ubuntu/.rvm/gems/ruby-2.3.3/bin/chromedriver'
+  screenshots_path: '/tmp/screenshots/'
+  screenshots_enabled: true
+  s3:
+    region: ''
+    bucket: ''
+    directory: 'failed_test_case_screenshots'
+  retry:
+    active: true
+    count: 5
+    sleep: 5
+  fast_fail:
+    active: false
+    count: 5

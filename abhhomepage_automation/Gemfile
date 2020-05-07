@@ -1,0 +1,13 @@
+source 'https://rubygems.org'
+
+gem 'rspec'
+gem 'require_all'
+gem 'selenium-webdriver', '3.14.0'
+gem 'capybara', '2.16.1'
+gem 'appium_lib', '9.14.1'
+gem 'appium_capybara', '1.3.0'
+gem 'chromedriver-helper'
+gem 'rspec2db', '1.2.1'
+gem 'rspec-retry'
+gem 'byebug'
+gem 'aws-sdk-s3'

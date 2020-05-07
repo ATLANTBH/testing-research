@@ -1,0 +1,11 @@
+options:
+  suite: "full regression"
+  build: "12345"
+  backtrace: false
+dbconnection:
+  adapter: postgresql
+  database:  test-reporter
+  username: postgres
+  password: testreporter
+  host: postgres
+  port: 5432
