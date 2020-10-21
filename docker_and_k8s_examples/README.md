@@ -10,7 +10,7 @@ They are divided into two sections: `bash` (examples where bash script is execut
 
 ### Bash
 
-1. [Dockerfile.v1](https://github.com/ATLANTBH/testing-research/docker_and_k8s_examples/docker/bash/dockerfile_examples/Dockerfile.v1) - Starting example which shows anatomy of simple Dockerfile with purposely left room for improvements
+1. [Dockerfile.v1](https://github.com/ATLANTBH/testing-research/blob/master/docker_and_k8s_examples/docker/bash/dockerfile_examples/Dockerfile.v1) - Starting example which shows anatomy of simple Dockerfile with purposely left room for improvements
 
 Usage:
 ```
@@ -20,7 +20,7 @@ $ docker build -t abh/examplebash .
 $ docker run abh/examplebash
 ```
 
-2. [Dockerfile.v2](https://github.com/ATLANTBH/testing-research/docker_and_k8s_examples/docker/bash/dockerfile_examples/Dockerfile.v2) - Improvement on Dockerfile.v1 where ordering of commands is fixed to speed up building of docker image by paying attention to the layers + used lightweight distro parent image (alpine)
+2. [Dockerfile.v2](https://github.com/ATLANTBH/testing-research/blob/master/docker_and_k8s_examples/docker/bash/dockerfile_examples/Dockerfile.v2) - Improvement on Dockerfile.v1 where ordering of commands is fixed to speed up building of docker image by paying attention to the layers + used lightweight distro parent image (alpine)
 
 Usage:
 ```
@@ -30,7 +30,7 @@ $ docker build -t abh/examplebash .
 $ docker run abh/examplebash
 ```
 
-3. [Dockerfile.v3](https://github.com/ATLANTBH/testing-research/docker_and_k8s_examples/docker/bash/dockerfile_examples/Dockerfile.v3) - In case you want to debug what happens in your container when created from image, you can override your ENTRYPOINT with sleep command. Note that you should run this example in background mode with (-d) flag
+3. [Dockerfile.v3](https://github.com/ATLANTBH/testing-research/blob/master/docker_and_k8s_examples/docker/bash/dockerfile_examples/Dockerfile.v3) - In case you want to debug what happens in your container when created from image, you can override your ENTRYPOINT with sleep command. Note that you should run this example in background mode with (-d) flag
 
 Usage:
 ```
@@ -53,7 +53,7 @@ When you entered into the container, you can execute script by yourself:
 This is Test
 ```
 
-4. [Dockerfile.v4](https://github.com/ATLANTBH/testing-research/docker_and_k8s_examples/docker/bash/dockerfile_examples/Dockerfile.v4) - In case you want to parametrise entrypoint, this example shows how to use ENV var. It also demonstrates how you can persist data accross multiple runs of docker container using volumes.
+4. [Dockerfile.v4](https://github.com/ATLANTBH/testing-research/blob/master/docker_and_k8s_examples/docker/bash/dockerfile_examples/Dockerfile.v4) - In case you want to parametrise entrypoint, this example shows how to use ENV var. It also demonstrates how you can persist data accross multiple runs of docker container using volumes.
 
 Script `example_2.sh` has following line:
 ```
@@ -80,7 +80,7 @@ This is SecondTest
 
 ### Node
 
-1. [Dockerfile](https://github.com/ATLANTBH/testing-research/docker_and_k8s_examples/docker/node/Dockerfile) - Starting example which shows how to package nodejs files into the docker image and how to use parent node image which has all pre-installed libs necessary to run nodejs script. Alpine distro is used to shrink the size of the docker image
+1. [Dockerfile](https://github.com/ATLANTBH/testing-research/blob/master/docker_and_k8s_examples/docker/node/Dockerfile) - Starting example which shows how to package nodejs files into the docker image and how to use parent node image which has all pre-installed libs necessary to run nodejs script. Alpine distro is used to shrink the size of the docker image
 
 Usage:
 ```
