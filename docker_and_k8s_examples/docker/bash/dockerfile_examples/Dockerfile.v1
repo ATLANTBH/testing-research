@@ -1,0 +1,17 @@
+# Example overview: 
+# - starting example which shows anatomy of simple Dockerfile
+# - purposely uses larger distro (ubuntu) and incorrect ordering of some docker commands which will be improved in Dockerfile.v2
+FROM ubuntu:18.04
+
+# Do setup for running script
+RUN mkdir -p /myscripts
+COPY ./example_1.sh /myscripts
+WORKDIR /myscripts
+RUN chmod +x example_1.sh
+
+# Install system deps
+RUN apt update \
+    && apt install -y jq telnet
+
+# Run script
+ENTRYPOINT ["./example_1.sh", "-n", "Test"]

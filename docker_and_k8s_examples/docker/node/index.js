@@ -1,0 +1,1 @@
+console.dir(`This is test`, { colors: true })
