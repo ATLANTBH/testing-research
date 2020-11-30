@@ -80,11 +80,13 @@ They are divided into two sections: `bash` (examples where bash script is execut
 
 ### Node
 
-1. [Dockerfile](https://github.com/ATLANTBH/testing-research/blob/master/docker_and_k8s_examples/docker/node/Dockerfile) - Starting example which shows how to package nodejs files into the docker image and how to use parent node image which has all pre-installed libs necessary to run nodejs script. Alpine distro is used to shrink the size of the docker image
+1. [Dockerfile](https://github.com/ATLANTBH/testing-research/docker_and_k8s_examples/docker/node/Dockerfile) - Starting example which shows how to package express nodejs/mongodb app into the docker images and how to use parent node image which has all pre-installed libs necessary to run this app. Alpine distro is used to shrink the size of the docker image. This example is meant to be used in docker-compose fashion. That being said, do following to use it:
 
-  Usage:
-  ```
-  $ cd ./node
-  $ docker build -t abh/examplenode .
-  $ docker run abh/examplenode
-  ```
+Usage:
+```
+$ cd ./node
+$ docker-compose build
+$ docker-compose up -d
+```
+
+You should be able to view the app in browser by accessing: `http://localhost:8081`
