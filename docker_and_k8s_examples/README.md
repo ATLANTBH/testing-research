@@ -80,13 +80,47 @@ They are divided into two sections: `bash` (examples where bash script is execut
 
 ### Node
 
-1. [Dockerfile](https://github.com/ATLANTBH/testing-research/docker_and_k8s_examples/docker/node/Dockerfile) - Starting example which shows how to package express nodejs/mongodb app into the docker images and how to use parent node image which has all pre-installed libs necessary to run this app. Alpine distro is used to shrink the size of the docker image. This example is meant to be used in docker-compose fashion. That being said, do following to use it:
+1. [Dockerfile.v1](https://github.com/ATLANTBH/testing-research/blob/master/docker_and_k8s_examples/docker/node/dockerfile_examples/Dockerfile.v1) - Starting example which shows how to package express/nodejs app into the docker image and how to use parent node image which contains all pre-installed libs necessary for running this app. Alpine distro is used to shrink the size of the docker image
 
-Usage:
-```
-$ cd ./node
-$ docker-compose build
-$ docker-compose up -d
-```
+  Usage:
+  ```
+  $ cd ./node
+  $ cp dockerfile_examples/Dockerfile.v1 Dockerfile
+  $ docker build -t abh/examplenode .
+  ```
 
-You should be able to view the app in browser by accessing: `http://localhost:8081`
+  To run this example, we will use docker-compose in following way:
+  ```
+  $ docker-compose build
+  $ docker-compose up -d
+  ```
+
+  This should deploy express/nodejs app as well as mongo db backend to which web app is connecting. 
+  You should be able to view the app in browser by accessing: `http://localhost:8081`
+
+2. [Dockerfile.v2](https://github.com/ATLANTBH/testing-research/blob/master/docker_and_k8s_examples/docker/node/dockerfile_examples/Dockerfile.v2) - Example of dockerized express/nodejs app which shows what we need to do when we want to install some processing linux libs and how it increases size of the final image.
+
+  Usage:
+  ```
+  $ cd ./node
+  $ cp dockerfile_examples/Dockerfile.v2 Dockerfile
+  $ docker build -t abh/examplenode .
+  $ docker images | grep abh/examplenode
+  abh/examplenode                                    latest                                 44b39dff7a55        2 seconds ago       119MB
+  ```
+
+  As you see, size of the image is 119MB. This example doesn't use multi-stage build pattern which will be demonstrated in `Dockerfile.v3`
+
+3. [Dockerfile.v3](https://github.com/ATLANTBH/testing-research/blob/master/docker_and_k8s_examples/docker/node/dockerfile_examples/Dockerfile.v3) - Example of dockerized express/nodejs app which shows how to utilise multi-stage build pattern to shrink the size of your final docker image.
+
+  Usage:
+  ```
+  $ cd ./node
+  $ cp dockerfile_examples/Dockerfile.v3 Dockerfile
+  $ docker build -t abh/examplenode .
+  $ docker images | grep abh/examplenode
+  abh/examplenode                                    latest                                 f64455321390        2 seconds ago       99.7MB
+  ```
+
+  As you see, size of the image is now 99.7MB which is 20MB less than previous example
+
