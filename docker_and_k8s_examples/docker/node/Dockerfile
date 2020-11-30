@@ -4,12 +4,15 @@
 # - alpine distro is used to shrink the size of the docker image
 FROM node:12-alpine
 
+# Create app directory
+WORKDIR /usr/src/app
+
 # Do setup for running script
-RUN mkdir -p /mynodeproject
-COPY index.js /mynodeproject
-COPY package.json /mynodeproject
-WORKDIR /mynodeproject
+COPY package*.json ./
 RUN npm install --only=production
 
-# Run script
-ENTRYPOINT ["node", "index.js"]
+# Copy app source
+COPY . .
+
+EXPOSE 8080
+CMD [ "npm", "start" ]
