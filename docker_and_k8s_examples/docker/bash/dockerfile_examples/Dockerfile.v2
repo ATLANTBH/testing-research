@@ -9,9 +9,8 @@ RUN apk update \
     && apk add jq curl busybox-extras
 
 # Do setup for running script
-RUN mkdir -p /myscripts
-COPY ./example_1.sh /myscripts
 WORKDIR /myscripts
+COPY ./example_1.sh .
 RUN chmod +x example_1.sh
 
 # Run script

@@ -4,9 +4,8 @@
 FROM ubuntu:18.04
 
 # Do setup for running script
-RUN mkdir -p /myscripts
-COPY ./example_1.sh /myscripts
 WORKDIR /myscripts
+COPY ./example_1.sh .
 RUN chmod +x example_1.sh
 
 # Install system deps
