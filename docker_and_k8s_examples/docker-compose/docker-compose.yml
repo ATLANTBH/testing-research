@@ -1,0 +1,15 @@
+version: "3"
+services:
+  app:
+    image: abh/examplenode
+    container_name: examplenode
+    build: .
+    depends_on:
+      - mongo
+    ports:
+      - "8080:8080"
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27018:27017"
