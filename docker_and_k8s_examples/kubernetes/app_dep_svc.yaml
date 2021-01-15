@@ -40,10 +40,6 @@ spec:
         image: abh/examplenode
         imagePullPolicy: "IfNotPresent"
         env:
-          - name: MONGO_HOST
-            value: mongodb
-          - name: MONGO_PORT
-            value: '27017'
           - name: MONGO_DB_NAME
             value: test
           - name: MONGO_DB_COLLECTION
@@ -57,3 +53,11 @@ spec:
           limits:
             memory: "200Mi"
             cpu: "200m"
+        volumeMounts:
+        - name: environment-config
+          mountPath: /config/environment.yaml
+          subPath: environment.yaml
+      volumes:
+      - name: environment-config
+        configMap:
+          name: myapp-cm

@@ -3,14 +3,18 @@
 const express = require('express');
 const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
+const fs = require('fs');
+const yaml = require('js-yaml');
 
 // Web app Constants
 const PORT = 8080;
 const HOST = '0.0.0.0';
 
+const config = yaml.load(fs.readFileSync('./config/environment.yaml', 'utf-8'));
+
 // Mongo creds
-const MONGO_HOST = process.env.MONGO_HOST || 'mongo'
-const MONGO_PORT = process.env.MONGO_PORT || '8080'
+const MONGO_HOST = config.environment.mongo.host
+const MONGO_PORT = config.environment.mongo.port
 const MONGO_DB_NAME = process.env.MONGO_DB_NAME || 'testdb'
 const MONGO_DB_COLLECTION = process.env.MONGO_DB_NAME || 'employees'
 const MONGO_DB_URL = `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB_NAME}`
@@ -20,7 +24,7 @@ const MongoClient = mongodb.MongoClient;
 
 MongoClient.connect(MONGO_DB_URL, (err, client) => {
   if (err) { throw err; }
-  console.log('Database connection successful');
+  console.log(`Database connection successfully in environment: ${config.environment.name}`);
   client.close();
 });
 

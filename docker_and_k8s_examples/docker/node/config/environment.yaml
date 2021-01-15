@@ -1,0 +1,6 @@
+---
+environment:
+  name: development
+  mongo:
+    host: mongodb
+    port: 27017

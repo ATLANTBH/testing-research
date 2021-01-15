@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myapp-cm
+  labels:
+    app: myapp
+data:
+  environment.yaml: |-
+    environment:
+      name: development
+      mongo:
+        host: mongodb
+        port: 27017
