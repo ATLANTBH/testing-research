@@ -34,7 +34,7 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.get('/ping', (req, res) => {
-  res.send({ 'message': 'pong from version v2! '})
+  res.send({ 'message': 'pong from version v1! '})
 });
 
 app.get('/employees', (req, res) => {
