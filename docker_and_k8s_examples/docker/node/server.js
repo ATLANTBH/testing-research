@@ -10,7 +10,7 @@ const yaml = require('js-yaml');
 const PORT = 8080;
 const HOST = '0.0.0.0';
 
-const config = yaml.load(fs.readFileSync('./config/environment.yaml', 'utf-8'));
+const config = yaml.load(fs.readFileSync('/config/environment.yaml', 'utf-8'));
 
 // Mongo creds
 const MONGO_HOST = config.environment.mongo.host
@@ -32,6 +32,10 @@ MongoClient.connect(MONGO_DB_URL, (err, client) => {
 const app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+app.get('/ping', (req, res) => {
+  res.send({ 'message': 'pong from version v2! '})
+});
 
 app.get('/employees', (req, res) => {
   MongoClient.connect(MONGO_DB_URL, function(err, client) {

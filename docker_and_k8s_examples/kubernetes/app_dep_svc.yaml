@@ -24,12 +24,13 @@ spec:
   selector:
     matchLabels:
       app: myapp
+  minReadySeconds: 10 # how long a newly created pod should be ready before treated available
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 1
-  replicas: 1
+      maxUnavailable: 0
+  replicas: 3
   template:
     metadata:
       labels:
@@ -37,7 +38,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: abh/examplenode
+        image: abh/examplenode:v1
         imagePullPolicy: "IfNotPresent"
         env:
           - name: MONGO_DB_NAME
@@ -46,10 +47,15 @@ spec:
             value: employee
         ports:
         - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 1
+          httpGet:
+            path: /ping
+            port: 8080
         resources:
           requests:
             memory: "100Mi"
-            cpu: "100m"
+            cpu: "20m"
           limits:
             memory: "200Mi"
             cpu: "200m"
