@@ -1,5 +1,22 @@
 # Additonal commands used for Kubernetes demo
 
+## Setup before trying out demo examples
+- Install and start Minikube
+- Point docker build process to Minikube VM so that newly created docker images end up on the Minikube machine: 
+```
+eval $(minikube docker-env)
+```
+- Build two docker images (v1 and v2) from the source code in following way:
+```
+cd ../docker/node
+vim server.js # change message that /ping endpoint retrieves to be: pong from version v1!
+docker build -t abh/examplenode:v1 .
+vim server.js # change message that /ping endpoint retrieves to be: pong from version v2!
+docker build -t abh/examplenode:v2 .
+```
+This makes sures that we have two docker image versions of nodejs app which will be needed for the demo purposes
+
+
 ## HPA - Horizontal pod autoscaler
 
 To try autoscaler, first make sure that number of app pods running = 1. Then create following HPA for demo purposes:
