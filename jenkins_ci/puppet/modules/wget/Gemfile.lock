@@ -175,7 +175,7 @@ GEM
       thor (~> 0.15)
     metaclass (0.0.4)
     mime-types (2.4.3)
-    mini_portile (0.6.2)
+    mini_portile2 (2.8.0)
     minitest (5.5.1)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
@@ -185,8 +185,9 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
     netrc (0.10.3)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.13.6)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     puppet (3.7.5)
       facter (> 1.6, < 3)
       hiera (~> 1.0)
@@ -205,6 +206,7 @@ GEM
       puppet-syntax
       rake
       rspec-puppet
+    racc (1.6.0)
     rake (10.4.2)
     rbvmomi (1.8.2)
       builder
