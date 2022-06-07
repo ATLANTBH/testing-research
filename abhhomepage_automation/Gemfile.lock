@@ -68,7 +68,7 @@ GEM
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.14.1)
