@@ -1,0 +1,12 @@
+To get set up, you need to install:
+1. Node.js 
+    https://nodejs.org/en/
+2. Protractor: 
+    npm install -g protractor 
+3. WebDriver Manager
+    npm install -g webdriver-manager
+
+Commands for running tests:
+1. webdriver-manager update
+2. webdriver-manager start
+3. protractor conf.js (you need to be navigated to the directory where conf.js is present)
