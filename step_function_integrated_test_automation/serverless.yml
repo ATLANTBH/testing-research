@@ -1,0 +1,99 @@
+service: sfn-blog
+
+frameworkVersion: "3"
+# Define  cloud provider settings and IAM roles needed for our SF to work
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-central-1
+  environment: ${file(env.json)}
+  iamRoleStatements:
+    - Effect: Allow
+      Action: dynamodb:*
+      Resource: arn:aws:dynamodb:eu-central-1:178190218027:table/messages
+    - Effect: Allow
+      Action: dynamodb:*
+      Resource: arn:aws:dynamodb:eu-central-1:178190218027:table/US_users_events
+    - Effect: Allow
+      Action: dynamodb:*
+      Resource: arn:aws:dynamodb:eu-central-1:178190218027:table/EU_users_events
+    - Effect: Allow
+      Action: s3:*
+      Resource: arn:aws:s3:::sfn-blog
+
+plugins:
+  - serverless-step-functions
+# Define a path to the AWS Lambda Functions
+functions:
+  FetchFromDynamoDBState:
+    handler: handler.FetchFromDynamoDBState
+  ProcessUSUsersEvents:
+    handler: handler.ProcessUSUsersEvents
+  ProcessEUUsersEvents:
+    handler: handler.ProcessEUUsersEvents
+  InsertMessageDynamoDBTest:
+    handler: handler.InsertMessageDynamoDBTest
+  VerifyStepFunctionOutcomeTest:
+    handler: handler.VerifyStepFunctionOutcomeTest
+# Define Step Function and its state machine
+stepFunctions:
+  stateMachines:
+    proceedRewards:
+      name: proceedRewards
+      definition:
+        StartAt: InsertMessageDynamoDBTest
+        States:
+          InsertMessageDynamoDBTest:
+            Type: Task
+            Resource:
+              Fn::GetAtt: [InsertMessageDynamoDBTest, Arn]
+            ResultPath: "$.response"
+            Next: WaitState
+          WaitState:
+            Type: Wait
+            Seconds: 200
+            Next: FetchFromDynamoDBState
+          FetchFromDynamoDBState:
+            Type: Task
+            Resource:
+              Fn::GetAtt: [FetchFromDynamoDBState, Arn]
+            ResultPath: "$.items"
+            Next: ProcessDataState
+          ProcessDataState:
+            Type: Map
+            ItemsPath: "$.items.items"
+            ResultPath: "$.mappedData"
+            MaxConcurrency: 2
+            Iterator: 
+              StartAt: ProceedChoiceState
+              States:
+                ProceedChoiceState:
+                  Type: Choice
+                  Choices:
+                    - Variable: $.region.S
+                      StringEquals: "US"
+                      Next: ProcessUSUsersEventsState
+                    - Variable: $.region.S
+                      StringEquals: "EU"
+                      Next: ProcessEUUsersEventsState
+                  Default: DefaultState
+                ProcessUSUsersEventsState:
+                  Type: Task
+                  Resource:
+                    Fn::GetAtt: [ProcessUSUsersEvents, Arn]
+                  End: true
+                ProcessEUUsersEventsState:
+                  Type: Task
+                  Resource:
+                    Fn::GetAtt: [ProcessEUUsersEvents, Arn]
+                  End: true
+                DefaultState:
+                  Type: Fail
+                  Cause: 'Invalid region value.'
+                  Error: 'InvalidRegionError'
+            Next: VerifyStepFunctionOutcomeTest
+          VerifyStepFunctionOutcomeTest:
+            Type: Task
+            Resource:
+              Fn::GetAtt: [VerifyStepFunctionOutcomeTest, Arn]
+            End: true
