@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "qa-mcp": {
+      "type": "stdio",
+      "command": "java",
+      "args": [
+        "-jar",
+        "C:\\Users\\PROJECT_PATH\\IdeaProjects\\Java-MCP\\target\\Java-MCP-1.0-SNAPSHOT.jar"
+      ]
+    }
+  }
+}
