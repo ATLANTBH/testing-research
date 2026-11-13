@@ -29,13 +29,13 @@ public class Application {
         EnvironmentProperties properties = new EnvironmentProperties();
 
         String jenkinsUrl =
-                properties.loadProp("JENKINS_URL");
+                properties.loadRequiredEnvOrProp("JENKINS_URL");
 
         String jenkinsUser =
-                properties.loadProp("JENKINS_USER");
+                properties.loadRequiredEnvOrProp("JENKINS_USER");
 
         String jenkinsToken =
-                properties.loadProp("JENKINS_TOKEN");
+                properties.loadRequiredEnvOrProp("JENKINS_TOKEN");
 
 
         /*

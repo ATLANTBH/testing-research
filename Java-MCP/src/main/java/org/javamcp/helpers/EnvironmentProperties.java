@@ -37,4 +37,14 @@ public class EnvironmentProperties {
         String value = System.getenv(property);
         return value == null || value.isBlank() ? loadProp(property) : value;
     }
+
+    public String loadRequiredEnvOrProp(String property) {
+        String value = loadEnvOrProp(property);
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException("Missing required configuration: " + property
+                    + ". Set it as an environment variable (for example in mcp.json env)"
+                    + " or in the environment properties file.");
+        }
+        return value;
+    }
 }

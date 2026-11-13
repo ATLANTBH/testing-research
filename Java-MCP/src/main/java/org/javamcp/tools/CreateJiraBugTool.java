@@ -14,10 +14,6 @@ public class CreateJiraBugTool {
 
     private final Function<String, JiraService> serviceForEnvironment;
 
-    public CreateJiraBugTool(JiraService service) {
-        this(environment -> service);
-    }
-
     public CreateJiraBugTool(Function<String, JiraService> serviceForEnvironment) {
         this.serviceForEnvironment = serviceForEnvironment;
     }
@@ -38,7 +34,7 @@ public class CreateJiraBugTool {
                 "required", List.of("summary", "description"),
                 "additionalProperties", false);
         return McpServerFeatures.SyncToolSpecification.builder()
-                .tool(McpSchema.Tool.builder().name("create_jira_bug").inputSchema(inputSchema)
+                .tool(McpSchema.Tool.builder("create_jira_bug", inputSchema)
                         .description("Create a Jira Cloud Bug in the configured project, optionally including test failure details.").build())
                 .callHandler((exchange, request) -> {
                     try {
@@ -51,7 +47,7 @@ public class CreateJiraBugTool {
                         String environment = arguments.containsKey("environment")
                                 ? ToolResponses.requiredString(arguments, "environment", "qa", "staging") : "qa";
                         JiraBugInput input = new JiraBugInput(summary, description,
-                                optionalString(arguments, "priority"), optionalString(arguments, "environment"),
+                                optionalString(arguments, "priority"), environment,
                                 optionalString(arguments, "failedTestName"), optionalString(arguments, "jenkinsBuildUrl"),
                                 optionalString(arguments, "stackTrace"));
                         return ToolResponses.success(serviceForEnvironment.apply(environment).createBug(input));

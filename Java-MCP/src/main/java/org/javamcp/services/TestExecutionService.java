@@ -12,6 +12,9 @@ import java.nio.charset.StandardCharsets;
 
 public class TestExecutionService {
 
+    private static final String API_JOB_NAME_TEMPLATE = "%s E2E API test";
+    private static final String UI_JOB_NAME_TEMPLATE = "%s UI regression";
+
     private final JenkinsClient jenkinsClient;
 
     public TestExecutionService(JenkinsClient jenkinsClient) {
@@ -19,11 +22,11 @@ public class TestExecutionService {
     }
 
     public TestExecution runApiTests(String environment) throws IOException {
-        return trigger(environment + " E2E API test", "");
+        return trigger(API_JOB_NAME_TEMPLATE.formatted(environment), "");
     }
 
     public TestExecution runUiTests(String environment, String browser) throws IOException {
-        return trigger(environment + " UI regression", "BROWSER=" + encode(browser));
+        return trigger(UI_JOB_NAME_TEMPLATE.formatted(environment), "BROWSER=" + encode(browser));
     }
 
     private TestExecution trigger(String jobName, String parameters) throws IOException {
