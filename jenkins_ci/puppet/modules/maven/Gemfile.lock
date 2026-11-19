@@ -247,9 +247,9 @@ GEM
       net-scp
       net-ssh
     thor (0.19.1)
-    thread_safe (0.3.4)
+    thread_safe (0.3.6)
     trollop (2.1.1)
-    tzinfo (1.2.2)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
